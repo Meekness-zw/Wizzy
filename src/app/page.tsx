@@ -27,7 +27,6 @@ import Tabs from './components/Tabs';
 // Import styles for the slider
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import Reveiws from './components/Reveiws';
 
 function Page() {
   const [numGuests, setNumGuests] = useState(0);
@@ -54,7 +53,10 @@ function Page() {
     return () => window.removeEventListener('resize', updateItemsPerView); // Cleanup
   }, []);
 
-  const handleGuestsChange = (e) => setNumGuests(Number(e.target.value));
+  const handleGuestsChange = (e: React.ChangeEvent<HTMLSelectElement>): void => {
+    setNumGuests(Number(e.target.value));
+  };
+
   const handleBookNow = () => router.push('/signup');
 
   const placesData = [
@@ -120,9 +122,11 @@ function Page() {
                     onChange={handleGuestsChange}
                     className='rounded-[10px] bg-[#304F47] text-white w-full space-x-5'
                   >
-                    <option value="0" className=''></option>
-                    {[...Array(11).keys()].map(num => (
-                      <option key={num} value={num}>{num}</option>
+                    <option value="0" className=""></option>
+                    {Array.from({ length: 11 }, (_, num) => (
+                      <option key={num} value={num}>
+                        {num}
+                      </option>
                     ))}
                   </select>
                 </div>
